@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite  name="Ecommerce Website">
+    <groups>
+        <run>
+            <include name="default"/>
+        </run>
+    </groups>
+    <test verbose="5" preserve-order="true" name="Happy cases">
+        <classes>
+            <class name="Refactor_TC"></class>
+        </classes>
+    </test>
+
+    <test verbose="5" preserve-order="true" name="Negative cases">
+        <classes>
+            <class name="Refactor_negative_TC"></class>
+        </classes>
+    </test>
+</suite>
