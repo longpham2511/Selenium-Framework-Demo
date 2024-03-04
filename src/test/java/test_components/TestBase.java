@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -34,9 +36,17 @@ public class TestBase {
         String browsername = System.getProperty("browser") !=null ? System.getProperty("browser"):prop.getProperty("browser");
         //                  find if the browser is null or not     go and get value from mvn, if this is null get the globaldata properpties
 
-        if (browsername.equalsIgnoreCase("chrome")) {
+        if (browsername.contains("chrome")) {
+            ChromeOptions options = new ChromeOptions();
             WebDriverManager.chromedriver().setup(); //download chromedriver
-            driver = new ChromeDriver();
+            if(browsername.contains("headless")){   //only if the parameter is set to headless
+                options.addArguments("headless"); //add headless option
+
+            }
+
+            driver = new ChromeDriver(options); //run within headless mode
+            driver.manage().window().setSize(new Dimension(1440,900));
+
         } else if (browsername.equalsIgnoreCase("firefox")) {
             //initiate browser
             System.setProperty("geckodriver.exe", "//Users//longp//Downloads//geckodriver-v0.34.0-win64");
